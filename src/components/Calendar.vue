@@ -1,27 +1,27 @@
 
 <template>
-    <h2>カレンダー{{ currentDate }}</h2>
-    <button @click="prevMonth">前の月</button>
-    <button @click="nextMonth">次の月</button>
-    <div style="max-width:900px;border-top:5px solid red;">
-      <div
-        v-for="(week, index) in calendars"
-        :key="index"
-        style="display:flex;border-left:5px solid green"
-      >
-      <div
-        v-for="(day, index) in week"
-        :key="index"
-        style="
-            flex:1;min-height:125px;
-            border-right:5px solid gray;
-            border-bottom:5px solid gray;
-          "
-      >
-        {{ day.date }}
-      </div>
+  <h2>カレンダー{{ currentDate }}</h2>
+<button @click="prevMonth">前の月</button>
+<button @click="nextMonth">次の月</button>
+  <div style="max-width:900px;border-top:1px solid gray;">
+  <div
+    v-for="(week, index) in calendars"
+    :key="index"
+    style="display:flex;border-left:1px solid gray"
+  >
+    <div
+      v-for="(day, index) in week"
+      :key="index"
+      style="
+          flex:1;min-height:125px;
+          border-right:1px solid gray;
+          border-bottom:1px solid gray
+        "
+    >
+      {{ day.date }}
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -65,22 +65,18 @@ export default {
   },
   nextMonth() {
     this.currentDate = moment(this.currentDate).add(1, "month");
-  },
-  prevMonth() {
+},
+prevMonth() {
     this.currentDate = moment(this.currentDate).subtract(1, "month");
-  },
-  computed: {
+},
+},
+mounted(){
+  console.log(this.getCalendar());
+} ,
+computed: {
     calendars() {
       return this.getCalendar();
     },
   },
-},
-  mounted(){
-    const startDate = this.getStartDate();
-    const endDate = this.getEndDate();
-    const weekNumber = Math.ceil(endDate.diff(startDate, "days") / 7);
-    console.log(weekNumber) //5と表示される
-    console.log(this.getCalendar());
-  } 
 }
 </script>
